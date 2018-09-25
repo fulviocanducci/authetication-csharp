@@ -1,0 +1,19 @@
+body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;      
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+.text-right {
+	text-align: right;	
+}

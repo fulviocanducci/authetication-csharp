@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Gerenciador</title>
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Content/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="/Content/css/input-file.css" rel="stylesheet">
+    <link href="/Content/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="/Content/css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="/Content/css/dashboard.css" rel="stylesheet">
+    <link href="/Content/css/check.css" rel="stylesheet">
+    <link href="/Content/css/iziToast.css" rel="stylesheet">
+    <!--[if lt IE 9]><script src="/Scripts/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/Scripts/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/Scripts/js/html5shiv.min.js"></script>
+    <script src="/Scripts/js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="apple-touch-icon" sizes="57x57" href="/Content/ico/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/Content/ico/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Content/ico/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/Content/ico/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Content/ico/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/Content/ico/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Content/ico/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/Content/ico/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Content/ico/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Content/ico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Content/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/Content/ico/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Content/ico/favicon-16x16.png">
+    <link rel="manifest" href="/Content/ico/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/Content/ico/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">Gererenciador</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário Logado <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <!--<li class="dropdown-header">Operações do Usuário</li>
+                            <li><a href="/admin/changepassword">Trocar Senha</a></li>
+                            <li role="separator" class="divider"></li>-->
+                            <li class="dropdown-header">Logout</li>
+                            <li>
+                                <a href="/logout" onclick="">Sair do Sistema</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @RenderSection("menu", required: false)
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    @RenderSection("scripts", required: false)
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <script src="/Scripts/js/jquery.min.js"></script>
+    <script src="/Scripts/js/bootstrap.min.js"></script>
+    <script src="/Scripts/js/validator.js"></script>
+    <script src="/Scripts/js/holder.min.js"></script>
+    <script src="/Scripts/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/Scripts/js/input-text.js"></script>
+    <script src="/Scripts/js/jquery.mask.min.js"></script>
+    <script src="/Scripts/js/jquery.mask.fs.js"></script>
+    <script src="/Scripts/js/iziToast.js"></script>
+    <script src="/Scripts/js/moment-with-locales.min.js"></script>
+    <script src="/Scripts/js/bootstrap-datetimepicker.js"></script>
+    <script src="/Scripts/js/Chart.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
