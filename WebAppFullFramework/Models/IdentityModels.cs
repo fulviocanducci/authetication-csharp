@@ -29,5 +29,7 @@ namespace WebAppFullFramework.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<WebAppFullFramework.Models.RolesViewModel> RolesViewModels { get; set; }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WebAppFullFramework.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h4 class="page-header">Usuários</h4>
+<p class="text-center">
+    @Html.RouteLink("Novo usuário", "CreateUser", null, new { @class="btn btn-primary" })
+</p>
+<table class="table table-condensed table-striped table-hover">
+    <tr>
+        <th class="text-center">
+            E-mail
+        </th>        
+        <th class="text-center">
+            Nome do usuário
+        </th>
+        <th class="text-center">...</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td class="text-center">
+            @Html.RouteLink("Alterar", "EditUser", new { id = item.Id}, new { @class="btn btn-primary" })            
+        </td>
+    </tr>
+}
+</table>

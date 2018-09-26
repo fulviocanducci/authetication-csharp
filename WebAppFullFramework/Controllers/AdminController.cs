@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,9 @@ namespace WebAppFullFramework.Controllers
             => HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
         private ApplicationUserManager UserManager
             => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        
+        private ApplicationRoleManager RoleManager
+            => HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+
         #region CodeSupport
         //public AdminController()
         //{
@@ -47,11 +50,57 @@ namespace WebAppFullFramework.Controllers
             return View();
         }
 
+
+        [HttpGet()]
+        [Route("roles", Name = "Roles")]
+        public ActionResult Roles()
+        {
+            var items = RoleManager.Roles.ToList();
+            IList<RolesViewModel> roles = new List<RolesViewModel>();
+            items.ForEach(x =>
+            {
+                roles.Add(new RolesViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+            });
+            return View(roles);
+        }
+
+        [HttpGet()]
+        [Route("role/create", Name = "CreateRole")]
+        public ActionResult CreateRole()
+        {
+            return View();
+        }
+
+        [HttpGet()]
+        [Route("role/{id}/edit", Name = "EditRole")]
+        public ActionResult EditRole(string id)
+        {
+
+            return View();
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        public ActionResult SaveRole(RolesViewModel rolesViewModel)
+        {            
+            return View();
+        }
+
         #region AllowAnonymous_Methods
+
+        #region login
         [HttpGet()]
         [AllowAnonymous()]
         public ActionResult Login()
         {
+            if (User != null && User.Identity != null && User.Identity.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -73,8 +122,10 @@ namespace WebAppFullFramework.Controllers
                 }                
             }
             return View();
-        }        
+        }
+        #endregion login
 
+        #region recoverPassword
         [HttpGet()]
         [AllowAnonymous()]
         public ActionResult RecoverPassword()
@@ -102,7 +153,9 @@ namespace WebAppFullFramework.Controllers
             }
             return View();
         }
+        #endregion recoverPassword
 
+        #region resetPassword
         [HttpGet()]
         [AllowAnonymous()]
         public ActionResult ResetPassword(string code, string email)
@@ -143,9 +196,68 @@ namespace WebAppFullFramework.Controllers
                 }
             }
             return View();
-        }        
-        #endregion
+        }
+        #endregion resetPassword
 
+        #endregion AllowAnonymous_Methods
+
+        #region users
+        [HttpGet()]
+        [Route("users", Name = "Users")]
+        public async Task<ActionResult> Users()
+        {
+            return View(await UserManager.Users.ToListAsync());
+        }
+
+        [HttpGet()]
+        [Route("user/create", Name = "CreateUser")]
+        public ActionResult CreateUser()
+        {
+            return View("CreateOrEditUser");
+        }
+
+        [HttpGet()]
+        [Route("user/{id}/edit", Name = "EditUser")]
+        public async Task<ActionResult> EditUser(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                RegisterViewModel registerViewModel = new RegisterViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email
+                };
+                if (TempData.TryGetValue("Status", out _))
+                {
+                    ViewBag.Status = true;
+                }
+                return View("CreateOrEditUser", registerViewModel);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost()]
+        [ValidateAntiForgeryToken()]
+        public async Task<ActionResult> SaveUser(RegisterViewModel registerViewModel)
+        {
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = registerViewModel.Email,
+                UserName = registerViewModel.Email
+            };
+            var result = await UserManager.CreateAsync(user, registerViewModel.Password);
+            if (result.Succeeded)
+            {
+                TempData["Status"] = true;
+                return RedirectToRoute("EditUser", user.Id);
+            }
+            AddModelStateErrors(result.Errors);
+            return View("CreateOrEditUser");
+        }
+        #endregion users
+
+        #region changePassword
         [HttpGet()]
         public ActionResult ChangePassword()
         {
@@ -177,8 +289,9 @@ namespace WebAppFullFramework.Controllers
             
             return View();
         }
+        #endregion changePassword
 
-
+        #region logOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -189,7 +302,9 @@ namespace WebAppFullFramework.Controllers
                 .SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+        #endregion logOff
 
+        #region erros
         [NonAction()]
         private void AddModelStateErrors(IEnumerable<string> errors)
         {
@@ -199,5 +314,6 @@ namespace WebAppFullFramework.Controllers
                     ModelState.AddModelError("", x);
                 });
         }
+        #endregion
     }
 }

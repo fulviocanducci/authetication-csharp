@@ -64,18 +64,30 @@
                             <li class="dropdown-header">
                                 Usuário
                             </li>
-                            <li role="separator" class="divider"></li>
-                            <li>                                
-                                <a href="@Url.Action("ChangePassword")">
-                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
-                                    Alterar a senha
+                            <li>
+                                <a href="@Url.Action("Users")">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    Usuários
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Users")">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    Papel de usuários
                                 </a>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li>                                
+                            <li>
+                                <a href="@Url.Action("ChangePassword")">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    Alterar a sua senha
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
                                 <a href="javascript:;" onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();">
-                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Sair do Sistema
+                                    if (confirm('Deseja sair?')) { document.getElementById('logout-form').submit(); }">
+                                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sair do sistema
                                 </a>
                             </li>
                         </ul>
