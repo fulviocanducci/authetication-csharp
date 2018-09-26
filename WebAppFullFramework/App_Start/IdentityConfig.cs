@@ -26,7 +26,9 @@ namespace WebAppFullFramework
             //client.Credentials = new NetworkCredential("parapuasouza@gmail.com", "123456@ab");
             MailMessage mailMessage = new MailMessage("parapuasouza@gmail.com", message.Destination, message.Subject, message.Body)
             {
-                IsBodyHtml = true
+                IsBodyHtml = true, 
+                HeadersEncoding = System.Text.Encoding.UTF8,
+                BodyEncoding = System.Text.Encoding.UTF8,
             };
             return client.SendMailAsync(mailMessage);            
         }
@@ -47,6 +49,7 @@ namespace WebAppFullFramework
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
+            
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
@@ -65,7 +68,7 @@ namespace WebAppFullFramework
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = false,                 
             };
 
             // Configure user lockout defaults

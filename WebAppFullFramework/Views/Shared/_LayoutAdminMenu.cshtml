@@ -1,0 +1,10 @@
+﻿@{ Layout = null; }
+<li @if (Url.IsLocalUrl(Url.Action("Index", "Admin"))) { @Html.Raw("class=\"active\""); }>
+    <a href="@Url.Action("Index","Admin")">Home</a>
+</li>
+<li>
+    <a href="">Professores</a>
+</li>
+<li>
+    <a href="">Noticias</a>
+</li>
