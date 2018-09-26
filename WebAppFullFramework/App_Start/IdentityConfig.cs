@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -22,14 +17,18 @@ namespace WebAppFullFramework
         {
             // Plug in your email service here to send an email.
             SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
-            client.Timeout = 10000;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("parapuasouza@gmail.com", "123456@ab");
-            return client.SendMailAsync("parapuasouza@gmail.com", message.Destination, message.Subject, message.Body);            
+            //client.Port = 587;
+            //client.Host = "smtp.gmail.com";
+            //client.EnableSsl = true;
+            //client.Timeout = 10000;
+            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //client.UseDefaultCredentials = false;
+            //client.Credentials = new NetworkCredential("parapuasouza@gmail.com", "123456@ab");
+            MailMessage mailMessage = new MailMessage("parapuasouza@gmail.com", message.Destination, message.Subject, message.Body)
+            {
+                IsBodyHtml = true
+            };
+            return client.SendMailAsync(mailMessage);            
         }
     }
 
@@ -52,8 +51,7 @@ namespace WebAppFullFramework
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            // Configure validation logic for usernames
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));            
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,

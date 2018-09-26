@@ -38,61 +38,76 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/Content/ico/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <style>
+        .div-login-margin {
+            margin-top:10px;
+        }
+
+        body {
+            background: #eee !important;
+        }
+
+        .wrapper {
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+
+        .form-signin {
+            max-width: 380px;
+            padding: 15px 35px 45px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+            .form-signin .form-signin-heading,
+            .form-signin .checkbox {
+                margin-bottom: 30px;
+            }
+
+            .form-signin .checkbox {
+                font-weight: normal;
+            }
+
+            .form-signin .form-control {
+                position: relative;
+                font-size: 16px;
+                height: auto;
+                padding: 10px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+                .form-signin .form-control:focus {
+                    z-index: 2;
+                }
+
+            .form-signin-email {
+                margin-bottom: -1px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+        .form-signin-password-middle {
+            margin-bottom: -1px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+            .form-signin-password {
+                margin-bottom: 20px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+           
+    </style>
 </head>
-
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="">Gererenciador</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@if (User != null && User.Identity != null)
-                        { @User.Identity.Name } <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <!--<li class="dropdown-header">Operações do Usuário</li>
-                            <li><a href="/admin/changepassword">Trocar Senha</a></li>
-                            <li role="separator" class="divider"></li>-->
-                            <li class="dropdown-header">
-
-                            </li>
-                            <li>
-                                <a href="/logout" onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();">Sair do Sistema</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @RenderSection("menu", required: false)
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    @RenderSection("scripts", required: false)
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
-    @using(Html.BeginForm("LogOff", "Admin", FormMethod.Post, new { @style="display:none", id= "logout-form", name= "logout-form" }))
-    {
-        @Html.AntiForgeryToken();
-    }
+    @RenderBody()
     <script src="/Scripts/js/jquery.min.js"></script>
     <script src="/Scripts/js/bootstrap.min.js"></script>
     <script src="/Scripts/js/validator.js"></script>
